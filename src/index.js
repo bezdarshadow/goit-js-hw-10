@@ -14,6 +14,7 @@ const countryInfoEl = document.querySelector('.country-info');
 
 const onInputInput = event => {
     const country = findCountriesEl.value.trim();
+
     if(country === ''){
         countriesListEl.innerHTML = "";
         countryInfoEl.innerHTML = "";
@@ -27,6 +28,8 @@ const onInputInput = event => {
             countriesListEl.innerHTML = allCountries(data);    
         } else if (data.length === 1) {
             countriesListEl.innerHTML = "";
+            data[0].population = String(data[0].population).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g,"$1,")
+            data[0].languages = Object.values(data[0].languages).join(", ")
             countryInfoEl.innerHTML = currentCountry(data);
         } else if (data.length > 10) {
             Notiflix.Notify.info("Too many matches found. Please enter a more specific name.")
